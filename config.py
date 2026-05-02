@@ -3,6 +3,12 @@
 # Single source of truth for all API URLs, keys, and feature flags.
 # When a teammate hands you a URL, change it HERE only.
 # ─────────────────────────────────────────────────────────────
+import os
+
+# ── API Keys ──────────────────────────────────────────
+HF_TOKEN           = os.environ.get("HF_TOKEN", "")
+OPENWEATHER_API_KEY = os.environ.get("OPENWEATHER_API_KEY", "")
+GROQ_API_KEY       = os.environ.get("GROQ_API_KEY", "")
 
 # ── Feature Flags ─────────────────────────────────────────────
 # Set to True once the corresponding module is live
