@@ -1,85 +1,41 @@
-name: Deploy Space to Hugging Face
-on:
-  push:
-    branches: [ main ]
+- name: Install/upgrade huggingface_hub
+  run: pip install --upgrade huggingface_hub
 
-jobs:
-  deploy-space:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+- name: Check HF token presence
+  run: |
+    python - <<'PY'
+    import os
+    from huggingface_hub import __version__ as hf_version
+    print("huggingface_hub version:", hf_version)
+    print("HF_TOKEN present" if os.environ.get("HF_TOKEN") else "HF_TOKEN NOT set")
+    PY
+  env:
+    HF_TOKEN: ${{ secrets.HF_TOKEN }}
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
+- name: Deploy to Hugging Face Space
+  env:
+    HF_TOKEN: ${{ secrets.HF_TOKEN }}
+    HF_REPO: "fatimaaisha002/agriguard-ai"
+    SPACE_SDK: "streamlit"
+  run: |
+    python - <<'PY'
+    import os
+    from huggingface_hub import HfApi
+    from huggingface_hub import errors
 
-      - name: Install/upgrade huggingface_hub
-        run: pip install --upgrade huggingface_hub
-
-      - name: Deploy to Hugging Face Space
-        env:
-          HF_TOKEN: ${{ secrets.HF_API_TOKEN }}    # change to ${{ secrets.HF_TOKEN }} if you named it HF_TOKEN
-          HF_REPO: "fatimaaisha002/agriguard-ai"
-          SPACE_SDK: "streamlit"                   # set 'streamlit' or 'gradio' as appropriate
-        run: |
-          python - <<'PY'
-          import os
-          from huggingface_hub import HfApi, __version__ as hf_version
-          from huggingface_hub.utils import hf_raise_for_status
-          from huggingface_hub import errors
-
-          print("huggingface_hub version:", hf_version)
-
-          token = os.environ.get("HF_TOKEN")
-          repo_id = os.environ.get("HF_REPO")
-          sdk = os.environ.get("SPACE_SDK", "streamlit")
-
-          if not token:
-              raise SystemExit("HF token is not set. Add it as a repository secret (HF_API_TOKEN or HF_TOKEN).")
-
-          api = HfApi()
-
-          # Try to create the Space repo with the desired sdk. If the server rejects it (400),
-          # retry with a fallback (static). This handles older huggingface_hub/server combinations.
-          try:
-              print(f"Creating repo {repo_id} with space_sdk={sdk}")
-              api.create_repo(
-                  repo_id=repo_id,
-                  token=token,
-                  repo_type="space",
-                  space_sdk=sdk,
-                  exist_ok=True,
-                  private=False
-              )
-          except errors.BadRequestError as e:
-              print("create_repo failed with BadRequestError:", e)
-              # If we asked for streamlit but server doesn't accept it, try 'static' as fallback
-              if sdk == "streamlit":
-                  fallback = "static"
-                  print(f"Retrying create_repo with fallback space_sdk={fallback}")
-                  api.create_repo(
-                      repo_id=repo_id,
-                      token=token,
-                      repo_type="space",
-                      space_sdk=fallback,
-                      exist_ok=True,
-                      private=False
-                  )
-              else:
-                  raise
-
-          # Upload folder contents to the Space (ignore git internals)
-          print("Uploading repository files to the Space...")
-          api.upload_folder(
-              repo_id=repo_id,
-              repo_type="space",
-              folder_path=".",
-              path_in_repo="",
-              token=token,
-              commit_message="Auto deploy Space from GitHub Actions",
-              ignore_patterns=[".git", ".github"]
-          )
-
-          print("Upload finished.")
-          PY
+    token = os.environ.get("HF_TOKEN")
+    repo_id = os.environ.get("HF_REPO")
+    sdk = os.environ.get("SPACE_SDK", "streamlit")
+    if not token:
+        raise SystemExit("HF token is not set. Add it as a repository secret (HF_API_TOKEN or HF_TOKEN).")
+    api = HfApi()
+    try:
+        api.create_repo(repo_id=repo_id, token=token, repo_type="space", space_sdk=sdk, exist_ok=True, private=False)
+    except errors.BadRequestError:
+        if sdk == "streamlit":
+            api.create_repo(repo_id=repo_id, token=token, repo_type="space", space_sdk="static", exist_ok=True, private=False)
+        else:
+            raise
+    api.upload_folder(repo_id=repo_id, repo_type="space", folder_path=".", path_in_repo="", token=token, commit_message="Auto deploy from GitHub Actions", ignore_patterns=[".git", ".github"])
+    print("Upload finished.")
+    PY
