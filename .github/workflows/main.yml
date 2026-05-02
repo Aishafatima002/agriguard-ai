@@ -21,6 +21,7 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
           HF_REPO: "fatimaaisha002/agriguard-ai"  # change to your HF repo id if different
+          SPACE_SDK: "streamlit" 
         run: |
           python - <<'PY'
           import os
