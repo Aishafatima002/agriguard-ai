@@ -43,6 +43,29 @@ jobs:
           fetch-depth: 0
           lfs: true
 
+      - name: Install Git LFS
+        run: |
+          git lfs install
+
+      - name: Track binary files with Git LFS
+        run: |
+          git lfs track "*.ttf"
+          git lfs track "*.otf"
+          git lfs track "*.woff"
+          git lfs track "*.woff2"
+          git lfs track "*.png"
+          git lfs track "*.jpg"
+          git lfs track "*.jpeg"
+          git lfs track "*.gif"
+          git lfs track "*.ico"
+          git lfs track "*.pkl"
+          git lfs track "*.pt"
+          git lfs track "*.bin"
+          git add .gitattributes
+          git config user.email "github-actions@github.com"
+          git config user.name "GitHub Actions"
+          git diff --staged --quiet || git commit -m "ci: track binary files with Git LFS"
+
       - name: Push to Hugging Face Space
         env:
           HF_API_TOKEN: ${{ secrets.HF_API_TOKEN }}
