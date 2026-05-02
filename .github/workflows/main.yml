@@ -19,7 +19,7 @@ jobs:
 
       - name: Deploy to Hugging Face Space
         env:
-          HF_TOKEN: ${{ secrets.HF_API_TOKEN }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
           HF_REPO: "fatimaaisha002/agriguard-ai"  # change to your HF repo id if different
         run: |
           python - <<'PY'
