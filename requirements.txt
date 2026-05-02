@@ -1,5 +1,3 @@
-huggingface_hub
-# add any other packages your app needs below
 streamlit
 python-dotenv
 requests==2.33.1
