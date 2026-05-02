@@ -40,7 +40,6 @@ html, body, [data-testid="stAppViewContainer"] {
 }
 [data-testid="stSidebar"] { background: linear-gradient(160deg, var(--green-deep), #143326); }
 [data-testid="stSidebar"] * { color: var(--green-pale) !important; }
-/* Sidebar input fields — readable on dark background */
 [data-testid="stSidebar"] [data-testid="stSelectbox"] > div > div,
 [data-testid="stSidebar"] .stSelectbox > div > div {
     background: rgba(255,255,255,0.12) !important;
@@ -86,8 +85,6 @@ html, body, [data-testid="stAppViewContainer"] {
 .result-icon  { font-size:1.3rem; min-width:2rem; text-align:center; }
 .result-label { font-size:.72rem; font-weight:600; text-transform:uppercase; letter-spacing:.8px; color:var(--text-soft); margin-bottom:.2rem; }
 .result-value { font-size:.97rem; color:var(--text-primary); line-height:1.45; }
-
-/* Yield Loss Card */
 .yield-card {
     border-radius: 16px; padding: 1.4rem 1.8rem; margin-top: 1rem; margin-bottom: 1rem;
     box-shadow: 0 4px 20px var(--shadow);
@@ -103,7 +100,6 @@ html, body, [data-testid="stAppViewContainer"] {
 .yield-metric.loss .yield-metric-value  { color: var(--red-mid); }
 .yield-metric.saved .yield-metric-value { color: var(--green-mid); }
 .yield-metric.full .yield-metric-value  { color: #1a2e1d; }
-
 .stButton>button { background:linear-gradient(135deg,var(--green-mid),var(--green-leaf));
     color:white!important; border:none!important; border-radius:10px!important;
     font-family:'DM Sans',sans-serif!important; font-weight:500!important; }
@@ -111,8 +107,6 @@ html, body, [data-testid="stAppViewContainer"] {
     border-radius:10px!important; border:none!important; font-family:'DM Sans',sans-serif!important; }
 [data-testid="stCameraInput"], [data-testid="stFileUploader"] {
     background:#fff!important; border:2px dashed var(--green-light)!important; border-radius:14px!important; }
-
-/* ── Nuclear: sidebar number input always dark ── */
 [data-testid="stSidebar"] input,
 [data-testid="stSidebar"] input[type="number"],
 [data-testid="stSidebar"] [data-baseweb="input"] input,
@@ -139,50 +133,18 @@ html, body, [data-testid="stAppViewContainer"] {
     color: #d8f3dc !important;
     border-radius: 6px !important;
 }
-
-/* ── Chat modal panel ── */
-.chat-modal-overlay {
-    position: fixed; inset: 0; z-index: 9990;
-    background: rgba(10,25,15,0.45); backdrop-filter: blur(4px);
-    display: flex; align-items: flex-end; justify-content: flex-end;
-    padding: 0 2.5rem 2.5rem 0;
-    animation: fadeIn .18s ease;
+/* ── invalid image banner ── */
+.invalid-image-banner {
+    background: linear-gradient(135deg, #fff1f0, #ffe8e6);
+    border: 1.5px solid #fca5a5;
+    border-radius: 16px;
+    padding: 1.8rem 2rem;
+    text-align: center;
+    margin-bottom: 1rem;
 }
-@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-.chat-modal {
-    width: 420px; height: 580px; border-radius: 22px; overflow: hidden;
-    display: flex; flex-direction: column;
-    box-shadow: 0 24px 64px rgba(10,30,15,0.45);
-    border: 1px solid rgba(82,183,136,0.3);
-    animation: slideUp .22s cubic-bezier(.34,1.56,.64,1);
-}
-@keyframes slideUp { from { opacity:0; transform:translateY(40px) scale(.97); } to { opacity:1; transform:translateY(0) scale(1); } }
-.chat-modal-head {
-    background: linear-gradient(135deg, #0f2318 0%, #1a3a2a 60%, #2d6a4f 100%);
-    padding: 1rem 1.2rem; display: flex; align-items: center; gap: .7rem; flex-shrink: 0;
-    border-bottom: 1px solid rgba(82,183,136,0.2);
-}
-.chat-modal-head-title { font-family:'DM Serif Display',serif; font-size:1.05rem; color:#d8f3dc; flex:1; }
-.chat-modal-head-sub { font-size:.72rem; color:rgba(149,213,178,.7); margin-top:.1rem; }
-.chat-modal-body { flex:1; overflow-y:auto; padding:.9rem 1rem; background:#f8faf8;
-    display:flex; flex-direction:column; gap:.4rem; }
-.chat-modal-body::-webkit-scrollbar { width:4px; }
-.chat-modal-body::-webkit-scrollbar-thumb { background:#95d5b2; border-radius:4px; }
-.cb-user { background:linear-gradient(135deg,#2d6a4f,#52b788); color:#fff;
-    border-radius:16px 16px 4px 16px; padding:.55rem .9rem;
-    max-width:82%; margin-left:auto; font-size:.88rem; line-height:1.45; }
-.cb-bot  { background:#fff; color:#1a2e1d; border:1px solid #d8f3dc;
-    border-radius:16px 16px 16px 4px; padding:.55rem .9rem;
-    max-width:88%; font-size:.88rem; line-height:1.45;
-    box-shadow:0 2px 8px rgba(45,106,79,.08); }
-.cb-lbl  { font-size:.65rem; font-weight:600; letter-spacing:.6px;
-    text-transform:uppercase; color:#4a6741; margin-bottom:.15rem; }
-.cb-lbl-u { text-align:right; color:#2d6a4f; }
-.chat-modal-chips { padding:.6rem .9rem; background:#fff;
-    border-top:1px solid #e8f5e9; display:flex; flex-wrap:wrap; gap:.35rem; flex-shrink:0; }
-.chat-modal-chip { font-size:.71rem; background:#d8f3dc; color:#1a3a2a;
-    border:1px solid #95d5b2; border-radius:999px; padding:.22rem .65rem; cursor:pointer; }
-.chat-modal-chip:hover { background:#95d5b2; }
+.invalid-image-banner .inv-icon { font-size: 3rem; margin-bottom: .6rem; }
+.invalid-image-banner h3 { color: #c0392b; font-family:'DM Serif Display',serif; margin: 0 0 .4rem; }
+.invalid-image-banner p  { color: #7f1d1d; font-size: .92rem; margin: 0; line-height: 1.5; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -198,7 +160,6 @@ with st.sidebar:
     st.markdown("**📍 Region**  \nKarachi, Sindh, Pakistan")
     st.markdown("---")
 
-    # ── NEW: Language Selector ────────────────────────────────
     st.markdown("**🌐 Output Language**")
     selected_language = st.selectbox(
         "Choose language",
@@ -210,7 +171,6 @@ with st.sidebar:
 
     st.markdown("---")
 
-    # ── NEW: Farm Details for Yield Loss ─────────────────────
     st.markdown("**🌾 Farm Details**")
     st.caption("Used to estimate economic impact")
     farm_acres = st.number_input(
@@ -224,7 +184,6 @@ with st.sidebar:
 
     st.markdown("---")
 
-    # Live integration status panel
     st.markdown("**Integration Status**")
     def status(label, live): return f"{'🟢' if live else '🟡'} {label} ({'Live' if live else 'Mock'})"
     st.caption(status("Vision Model (M1)", USE_REAL_VISION_MODEL))
@@ -234,7 +193,6 @@ with st.sidebar:
 
     st.markdown("---")
 
-    # ── Chat icon button ─────────────────────────────────────
     if "chat_open" not in st.session_state:
         st.session_state.chat_open = False
 
@@ -243,7 +201,6 @@ with st.sidebar:
         st.session_state.chat_open = not st.session_state.chat_open
         st.rerun()
 
-    # Style: make it look like a pill icon button, not a plain green button
     st.markdown("""
     <style>
     [data-testid="stSidebar"] button[kind="secondary"],
@@ -302,13 +259,26 @@ if active_image:
         with st.spinner("Identifying disease…"):
             vision = classify_disease(active_image)
 
+        # ── ✅ NEW: Check if image is not a plant ─────────────
+        if vision.get("error") and vision.get("disease_name") in ("Not a Plant", "Uncertain"):
+            st.markdown("</div>", unsafe_allow_html=True)  # close card
+            st.markdown(f"""
+            <div class="invalid-image-banner">
+                <div class="inv-icon">🚫</div>
+                <h3>{vision['disease_name']}</h3>
+                <p>{vision.get('message', 'Please upload a clear photo of a plant or crop leaf.')}</p>
+            </div>
+            """, unsafe_allow_html=True)
+            st.info("💡 **Tip:** Take a close-up photo of the affected leaf, stem, or fruit of your crop for best results.")
+            st.stop()
+
+        # ── Rest of pipeline only runs for valid plant images ──
         disease_name = vision["disease_name"]
         confidence   = int(vision.get("confidence", 0) * 100)
         severity     = vision.get("severity", "Medium")
         crop_type    = vision.get("crop_type", "Unknown Crop")
         mock_badge   = "" if USE_REAL_VISION_MODEL else "<span class='badge badge-mock'>Mock</span>"
 
-        # Pick severity badge colour
         sev_badge_cls = {"High": "badge-danger", "Medium": "badge-warn", "Low": "badge-success"}.get(severity, "badge-warn")
 
         st.markdown(f"""
@@ -346,7 +316,7 @@ if active_image:
         </div>
         """, unsafe_allow_html=True)
 
-        # ── Step 3: Groq Agent — now passes language_code ─────
+        # ── Step 3: Groq Agent ────────────────────────────────
         with st.spinner("Consulting RAG treatment manuals…"):
             agent = get_treatment_plan(disease_name, weather, language_code)
 
@@ -383,12 +353,11 @@ if active_image:
         # ── Step 4: Yield Loss Estimator ──────────────────────
         yield_data   = estimate_yield_loss(disease_name, severity, crop_type, farm_acres)
         loss_pct     = yield_data["loss_pct"]
-        sev_css      = severity.lower()  # "high" / "medium" / "low" for CSS class
+        sev_css      = severity.lower()
 
-        # Choose icon based on severity
         loss_icon = "🔴" if severity == "High" else ("🟡" if severity == "Medium" else "🟢")
         title_txt = (
-            f"Critical Economic Risk" if severity == "High"
+            "Critical Economic Risk" if severity == "High"
             else ("Moderate Economic Risk" if severity == "Medium"
                   else "Low Economic Risk")
         )
@@ -448,11 +417,10 @@ else:
 
 
 # ─────────────────────────────────────────────────────────────
-# CHAT PANEL — opens in main area when sidebar icon clicked
+# CHAT PANEL
 # ─────────────────────────────────────────────────────────────
 if st.session_state.get("chat_open", False):
     st.markdown("---")
-    # Panel header
     st.markdown("""
     <div style="background:linear-gradient(135deg,#0f2318,#2d6a4f);border-radius:18px 18px 0 0;
          padding:1rem 1.4rem;display:flex;align-items:center;gap:.7rem;
@@ -469,7 +437,6 @@ if st.session_state.get("chat_open", False):
     </div>
     """, unsafe_allow_html=True)
 
-    # Chat history display
     chat_panel = st.container()
     with chat_panel:
         if st.session_state.chat_history:
@@ -488,17 +455,14 @@ if st.session_state.get("chat_open", False):
             </div>
             """, unsafe_allow_html=True)
 
-    # Quick questions as compact chips
     st.markdown("**💡 Quick Questions:**")
     qcols = st.columns(3)
     for i, q in enumerate(QUICK_QUESTIONS):
         if qcols[i % 3].button(q[:38] + ("…" if len(q) > 38 else ""), key=f"quick_{i}", use_container_width=True):
             st.session_state.quick_q_used = q
 
-    # Chat input
     user_input = st.chat_input("Type your question here…")
 
-    # Handle quick question OR typed input
     active_input = st.session_state.quick_q_used or user_input
     if st.session_state.quick_q_used:
         st.session_state.quick_q_used = None
@@ -519,7 +483,6 @@ if st.session_state.get("chat_open", False):
         st.session_state.chat_history.append({"role": "assistant", "content": reply})
         st.rerun()
 
-    # Clear chat
     if st.session_state.chat_history:
         if st.button("🗑️ Clear Chat", key="clear_chat"):
             st.session_state.chat_history = []
