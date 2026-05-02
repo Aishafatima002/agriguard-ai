@@ -1,3 +1,14 @@
+---
+title: AgriGuard AI
+emoji: 🌿
+colorFrom: green
+colorTo: blue
+sdk: docker
+app_port: 8501
+pinned: false
+---
+
+
 # 🌿 AgriGuard AI — Complete Setup Guide
 
 A beginner-friendly guide to running AgriGuard AI on your computer from scratch.
