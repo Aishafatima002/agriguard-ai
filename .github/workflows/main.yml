@@ -1,0 +1,38 @@
+name: Deploy Space to Hugging Face
+on:
+  push:
+    branches: [ main ]  # change if your default branch is different
+
+jobs:
+  deploy-space:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install huggingface_hub
+        run: pip install huggingface_hub
+
+      - name: Deploy to Hugging Face Space
+        env:
+          HF_API_TOKEN: ${{ secrets.HF_API_TOKEN }}
+          HF_REPO: "fatimaaisha002/agriguard-ai"  # change to your HF repo id if different
+        run: |
+          python - <<'PY'
+          import os
+          from huggingface_hub import HfApi, Repository
+
+          token = os.environ.get('HF_API_TOKEN')
+          repo_id = os.environ.get('HF_REPO')
+          if not token:
+              raise SystemExit('HF_TOKEN is not set in secrets')
+          api = HfApi()
+          api.create_repo(repo_id=repo_id, token=token, repo_type='space', exist_ok=True, private=False)
+          repo_url = f"https://huggingface.co/spaces/{repo_id}"
+          repo = Repository(local_dir='.', clone_from=repo_url, use_auth_token=token)
+          repo.push_to_hub(commit_message='Auto deploy Space from GitHub Actions')
+          PY
