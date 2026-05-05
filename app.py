@@ -12,7 +12,7 @@ from config             import USE_REAL_VISION_MODEL, USE_REAL_FLOWISE_AGENT, US
 # ─────────────────────────────────────────────────────────────
 # PAGE CONFIG
 # ─────────────────────────────────────────────────────────────
-st.set_page_config(page_title="AgriGuard AI", page_icon="🌿", layout="wide")
+st.set_page_config(page_title="AgriGuard AI", page_icon="🌿", layout="wide",initial_sidebar_state="expanded")
 
 # ── Chatbot session state ──────────────────────────────────────
 if "chat_history" not in st.session_state:
@@ -145,6 +145,10 @@ html, body, [data-testid="stAppViewContainer"] {
 .invalid-image-banner .inv-icon { font-size: 3rem; margin-bottom: .6rem; }
 .invalid-image-banner h3 { color: #c0392b; font-family:'DM Serif Display',serif; margin: 0 0 .4rem; }
 .invalid-image-banner p  { color: #7f1d1d; font-size: .92rem; margin: 0; line-height: 1.5; }
+##
+[data-testid="stSidebarCollapseButton"] {
+    display: none !important;
+}
 </style>
 """, unsafe_allow_html=True)
 

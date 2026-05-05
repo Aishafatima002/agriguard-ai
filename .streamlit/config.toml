@@ -15,3 +15,6 @@ backgroundColor = "#F1F8E9"
 secondaryBackgroundColor = "#C8E6C9"
 textColor = "#1B5E20"
 font = "sans serif"
+
+[ui]
+hideSidebarNavigation = false
